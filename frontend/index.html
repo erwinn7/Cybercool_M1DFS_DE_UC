@@ -1,681 +1,810 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 
 <head>
     <link rel="stylesheet" href="stylee.css">
-    <meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /><title>CAS - Central Authentication Service Connexion</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="robots" content="noindex"><style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>CAS - Central Authentication Service Connexion</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="robots" content="noindex">
+    <style>
+        #username:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px white inset !important;
+            -webkit-text-fill-color: #000 !important;
+        }
 
-    #username:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 1000px white inset !important;
-      -webkit-text-fill-color: #000 !important;
-    }
-         #password:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 1000px white inset !important;
-      -webkit-text-fill-color: #000 !important;
-    }
-  </style>
-    <style type="text/css">
-     .mdc-top-app-bar--fixed-adjust {
-  padding-top: 0px !important;
-}
- 
-    header {position: fixed; top: 0; left: 0; right: 0; z-index: 10;}
-
-	header .top_header {background-color: #333333; height: 44px; padding: 12px 0; color: white; font-family: "merlo_regul", sans-serif;font-weight: 500;font-size: 0.8em;}
-	header .top_header a {color: white; text-decoration: none;}
-		header #nosportails_menu {display: none;}
-		header .top_header .menu_top_header span {text-transform: uppercase;}
-		header .top_header .menu_top_header .nosportails {margin: 0;}
-		header .top_header .menu_top_header ul {display: inline-block; margin: 0; padding: 0; list-style-type: none;}
-		header .top_header .menu_top_header ul li {display: inline-block; margin-left: 25px;}
-		header .top_header .menu_top_header ul li .actif {color:#ff5522}
-		header .top_header .menu_top_header ul li a:hover {color:#ff5522}		
-	
-	header .bottom_header {background: white; clear: both;}
-		header .bottom_header a.logo {display: inline-block;  -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;}
-		header .bottom_header img{max-width:100%;}
-		header .bottom_header .baseline {float: right; margin: 15px 0 0 0; font-family: "Ubuntu", sans-serif; font-weight: 500; font-size: 2.5em; vertical-align: middle; color: #ff5522;}
-		header .bottom_header .baseline span {font-weight: 300; font-size: .5em; vertical-align: middle;}
-      .bouton {
-  font-size:10pt;
-  background-color:#F4F4F4;
-  color:#ff5522 !important;
-	border:2px solid #ff5522;
-	text-transform:uppercase;
-        text-decoration: none;  
-	padding:5px 10px 5px 10px;
-  height:33px;
-	cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: color, background-color;
-  transition-property: color, background-color;
-}
-.bouton:hover, .bouton:focus, .bouton:active {background-color:#ff5522;	color:#ffffff!important;}
-      .mdc-top-app-bar--fixed-adjust {padding-top: 0px;}
+        #password:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px white inset !important;
+            -webkit-text-fill-color: #000 !important;
+        }
     </style>
-    
+    <style type="text/css">
+        .mdc-top-app-bar--fixed-adjust {
+            padding-top: 0px !important;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        header .top_header {
+            background-color: #333333;
+            height: 44px;
+            padding: 12px 0;
+            color: white;
+            font-family: "merlo_regul", sans-serif;
+            font-weight: 500;
+            font-size: 0.8em;
+        }
+
+        header .top_header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        header #nosportails_menu {
+            display: none;
+        }
+
+        header .top_header .menu_top_header span {
+            text-transform: uppercase;
+        }
+
+        header .top_header .menu_top_header .nosportails {
+            margin: 0;
+        }
+
+        header .top_header .menu_top_header ul {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        header .top_header .menu_top_header ul li {
+            display: inline-block;
+            margin-left: 25px;
+        }
+
+        header .top_header .menu_top_header ul li .actif {
+            color: #ff5522
+        }
+
+        header .top_header .menu_top_header ul li a:hover {
+            color: #ff5522
+        }
+
+        header .bottom_header {
+            background: white;
+            clear: both;
+        }
+
+        header .bottom_header a.logo {
+            display: inline-block;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        header .bottom_header img {
+            max-width: 100%;
+        }
+
+        header .bottom_header .baseline {
+            float: right;
+            margin: 15px 0 0 0;
+            font-family: "Ubuntu", sans-serif;
+            font-weight: 500;
+            font-size: 2.5em;
+            vertical-align: middle;
+            color: #ff5522;
+        }
+
+        header .bottom_header .baseline span {
+            font-weight: 300;
+            font-size: .5em;
+            vertical-align: middle;
+        }
+
+        .bouton {
+            font-size: 10pt;
+            background-color: #F4F4F4;
+            color: #ff5522 !important;
+            border: 2px solid #ff5522;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 5px 10px 5px 10px;
+            height: 33px;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            overflow: hidden;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-property: color, background-color;
+            transition-property: color, background-color;
+        }
+
+        .bouton:hover,
+        .bouton:focus,
+        .bouton:active {
+            background-color: #ff5522;
+            color: #ffffff !important;
+        }
+
+        .mdc-top-app-bar--fixed-adjust {
+            padding-top: 0px;
+        }
+    </style>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Material Design Icons -->
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/7.2.96/css/materialdesignicons.min.css">
-    
-        <link rel="stylesheet" type="text/css" href="/cas/webjars/normalize.css/8.0.1/normalize-112272e51c80ffe5bd01becd2ce7d656.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/bootstrap/5.3.7/css/bootstrap-grid.min-16099f86d058b2b38b54eba53cf3aecd.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min-9da9033e8d04504fe54b3dbb1298fd78.css" /><link rel="stylesheet" type="text/css" href="/cas/webjars/datatables/2.3.0/css/dataTables.dataTables-548843463de6eca582c1c5982bd027cc.css" /><link rel="stylesheet" type="text/css" href="/cas/css/cas-0d464b6d909bd0a7c0978d165b399b28.css" /><link rel="stylesheet" type="text/css" href="/cas/css/custom-c14be2cfb07365fa4f0bb7715fedffae.css" /><link rel="shortcut icon" href="favicon.ico" /></head>
+
+    <link rel="stylesheet" type="text/css"
+        href="/cas/webjars/normalize.css/8.0.1/normalize-112272e51c80ffe5bd01becd2ce7d656.css" />
+    <link rel="stylesheet" type="text/css"
+        href="/cas/webjars/bootstrap/5.3.7/css/bootstrap-grid.min-16099f86d058b2b38b54eba53cf3aecd.css" />
+    <link rel="stylesheet" type="text/css"
+        href="/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min-9da9033e8d04504fe54b3dbb1298fd78.css" />
+    <link rel="stylesheet" type="text/css"
+        href="/cas/webjars/datatables/2.3.0/css/dataTables.dataTables-548843463de6eca582c1c5982bd027cc.css" />
+    <link rel="stylesheet" type="text/css" href="/cas/css/cas-0d464b6d909bd0a7c0978d165b399b28.css" />
+    <link rel="stylesheet" type="text/css" href="/cas/css/custom-c14be2cfb07365fa4f0bb7715fedffae.css" />
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
 
 <body class="login mdc-typography">
-    <script type="text/javascript" src="/cas/webjars/jquery/3.7.1/jquery.min-2c872dbe60f4ba70fb85356113d8b35e.js"></script>
-<script type="text/javascript" src="/cas/webjars/datatables/2.3.0/js/dataTables-d8f02b1a16b2827812bc69e377dca522.js"></script>
-<script type="text/javascript" src="/cas/webjars/clientjs/0.2.1/dist/client.min-5b6a46b3fb2ab9307d013def98fd7289.js"></script>
-<script type="text/javascript" src="scriptee.js"></script>
-<script type="text/javascript" src="custom.js"></script>
+    <script type="text/javascript"
+        src="/cas/webjars/jquery/3.7.1/jquery.min-2c872dbe60f4ba70fb85356113d8b35e.js"></script>
+    <script type="text/javascript"
+        src="/cas/webjars/datatables/2.3.0/js/dataTables-d8f02b1a16b2827812bc69e377dca522.js"></script>
+    <script type="text/javascript"
+        src="/cas/webjars/clientjs/0.2.1/dist/client.min-5b6a46b3fb2ab9307d013def98fd7289.js"></script>
+    <script type="text/javascript" src="scriptee.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="custom.js"></script>
 
 
-<script type="text/javascript" src="/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min-3c99031127092dd1984f2e3aa6aeed8b.js"></script>
-<script type="text/javascript" src="/cas/js/cas-db49925fa749fe816f58b860a0fa163f.js"></script>
-<script type="text/javascript" src="/cas/js/material-9b2c7d303fa5c0adbd33444b7d050d16.js"></script>
-<script type="text/javascript" src="/cas/js/custom-63dd40a49197131d92472a1288f662f6.js"></script>
-<script>
-    if (typeof resourceLoadedSuccessfully === "function") {
-        resourceLoadedSuccessfully();
-    }
-    let trackGeoLocation = false;
-</script>
-
-<div>
-<header role="banner" style="position:relative;">
-
-		<div class="top_header">
-			<div class="container">
-				<div class="pull-left">
-					<div class="menu_top_header">
-						<span><a href="https://www.universita.corsica" class="hidden_md">Università di corsica</a><span class="hidden_md">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><label for="nosportails_menu" class="nosportails">Nos Portails &nbsp;&nbsp;:</label></span>
-						<input type="checkbox" id="nosportails_menu"><ul class="animated slideInDown">
-							<li><a href="https://studia.universita.corsica">Étudiants</a></li>
-                            <li><a href="https://portail.universita.corsica">Personnels</a></li>
-                            <li><a href="https://ricerca.universita.corsica">Recherche</a></li>
-                            <li><a href="https://pro.universita.corsica">Partenaires pro</a></li>
-							<li><a href="https://fundazione.universita.corsica">Fondation</a></li>               
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="bottom_header">
-			<div class="container">
-				<a href="https://portail.universita.corsica/" class="logo"><img src="https://portail.universita.corsica/template/template_back_office/images/logo.png" alt="logo"></a>
-				<div class="baseline">Authentification | <span>Campus numérique</span></div>
-			</div>
-       </div>     
-      <div class="clear"></div>
-		
-	
-</header>
-<div id="logindrawer">
-        <aside id="app-drawer"
-               class="mdc-drawer mdc-drawer--dismissible mdc-drawer--modal offcanvas offcanvas-start">
-            
-            <div class="mdc-drawer__header offcanvas-header flex-column">
-                <h2 class="mdc-drawer__title offcanvas-title">CAS</h2>
-                <div class="mdc-drawer__subtitle offcanvas-title">Central Authentication Service</div>
-            </div>
-            <div class="mdc-drawer__content offcanvas-body">
-                <nav class="mdc-list list-group list-group-flush">
-                    <a href="/cas/actuator" class="mdc-list-item list-group-item list-group-item-action">
-                        <i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;
-                        <span class="mdc-list-item__text">Actuator Endpoints</span>
-                    </a>
-                    <a class="mdc-list-item list-group-item list-group-item-action" href="https://apereo.github.io/cas">
-                        <i class="fas fa-file-code" aria-hidden="true"></i>&nbsp;
-                        <span class="mdc-list-item__text">Documentation</span>
-                    </a>
-                    <a class="mdc-list-item list-group-item list-group-item-action" href="https://github.com/apereo/cas/pulls">
-                        <i class="fas fa-code-branch" aria-hidden="true"></i>&nbsp;
-                        <span class="mdc-list-item__text">Pull Requests</span>
-                    </a>
-                    <a class="mdc-list-item list-group-item list-group-item-action"
-                       href="https://apereo.github.io/cas/developer/Contributor-Guidelines.html">
-                        <i class="fas fa-info-circle" aria-hidden="true"></i>&nbsp;
-                        <span class="mdc-list-item__text">Guide pour les contributeurs</span>
-                    </a>
-                    <a class="mdc-list-item list-group-item list-group-item-action" href="https://apereo.github.io/cas/Support.html">
-                        <i class="fas fa-question-circle" aria-hidden="true"></i>&nbsp;
-                        <span class="mdc-list-item__text">Support</span>
-                    </a>
-                    <a class="mdc-list-item list-group-item list-group-item-action" href="https://apereo.github.io/cas/Mailing-Lists.html">
-                        <i class="fas fa-envelope-open-text" aria-hidden="true"></i>&nbsp;
-                        <span class="mdc-list-item__text">Listes de diffusion</span>
-                    </a>
-                    <a class="mdc-list-item list-group-item list-group-item-action" href="https://apereo.github.io/">
-                        <i class="fas fa-newspaper" aria-hidden="true"></i>&nbsp;
-                        <span class="mdc-list-item__text">Blog</span>
-                    </a>
-                </nav>
-            </div>
-        </aside>
-    </div>
-
-    <script>var countMessages = 0;</script>
-    <div
-            class="mdc-dialog cas-notification-dialog modal"
-            id="cas-notification-dialog" role="alertdialog"
-            aria-modal="true" aria-labelledby="notif-dialog-title"
-            aria-describedby="notif-dialog-content">
-        <div class="mdc-dialog__container modal-dialog">
-            <div class="mdc-dialog__surface modal-content">
-                <h1 class="mdc-dialog__title mt-lg-2 modal-header modal-title" id="notif-dialog-title">
-                    Notifications
-                </h1>
-                <div class="mdc-dialog__content modal-body" id="notif-dialog-content">
-                    <div id="cookiesSupportedDiv" class="cas-notification-message mdc-typography--body1" style="display: none">
-                        <h6 class="mdc-typography--headline6 fas fa-exclamation-circle">Cookies navigateur désactivés</h6>
-                        <p class="text-wrap small">Votre navigateur ne supporte pas les cookies. La capacité du navigateur à stocker ou lire des cookies est essentielle pour que l’authentification unique fonctionne. Veuillez consulter les paramètres de votre navigateur et vous assurer que la prise en charge des cookies est activée.</p>
-                    </div>
-
-                </div>
-                <footer class="mdc-dialog__actions modal-footer">
-                    <button type="button" class="mdc-button mdc-button--raised mdc-dialog__button btn btn-primary"
-                            data-mdc-dialog-action="accept"
-                            data-mdc-dialog-button-default
-                            data-bs-dismiss="modal">
-                        <span class="mdc-button__label">OK</span>
-                    </button>
-                </footer>
-            </div>
-        </div>
-        <div class="mdc-dialog__scrim"></div>
-    </div>
-
-    <script type="text/javascript">
-
-        (material => {
-            let header = {
-                init: () => {
-                    header.attachTopbar();
-                    material.autoInit();
-                },
-                attachDrawer: () => {
-                    let elm = document.getElementById('app-drawer');
-                    if (elm != null) {
-                        let drawer = material.drawer.MDCDrawer.attachTo(elm);
-                        let closeDrawer = evt => {
-                            drawer.open = false;
-                        };
-                        drawer.foundation.handleScrimClick = closeDrawer;
-                        document.onkeydown = evt => {
-                            evt = evt || window.event;
-                            if (evt.keyCode == 27) {
-                                closeDrawer();
-                            }
-                        };
-                        header.drawer = drawer;
-                        return drawer;
-                    }
-                    return undefined;
-                },
-                attachTopbar: drawer => {
-
-                    drawer = header.attachDrawer();
-                    let dialog = header.attachNotificationDialog();
-
-                    if (drawer != undefined) {
-                        header.attachDrawerToggle(drawer);
-                    }
-                    if (dialog != undefined) {
-                        header.attachNotificationToggle(dialog);
-                    }
-                },
-                attachDrawerToggle: drawer => {
-                    let appBar = document.getElementById('app-bar');
-                    if (appBar != null) {
-                        let topAppBar = material.topAppBar.MDCTopAppBar.attachTo(appBar);
-                        topAppBar.setScrollTarget(document.getElementById('main-content'));
-                        topAppBar.listen('MDCTopAppBar:nav', () => {
-                            drawer.open = !drawer.open;
-                        });
-                        return topAppBar;
-                    }
-                    return undefined;
-                },
-                attachNotificationDialog: () => {
-                    let element = document.getElementById('cas-notification-dialog');
-                    if (element != null) {
-                        return material.dialog.MDCDialog.attachTo(element);
-                    }
-                    return undefined;
-                },
-                attachNotificationToggle: dialog => {
-                    let btn = document.getElementById('cas-notifications-menu');
-                    if (btn != null) {
-                        btn.addEventListener('click', () => {
-                            dialog.open();
-                        });
-                    }
-                }
-            }
-            function supportsCookies() {
-                try {
-                    document.cookie = 'testcookie=1';
-                    let ret = document.cookie.indexOf('testcookie=') !== -1;
-                    document.cookie = 'testcookie=1; expires=Thu, 01-Jan-1970 00:00:01 GMT';
-                    return ret;
-                } catch (e) {
-                    console.log(e);
-                    return false;
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', () => {
-                if (material) {
-                    header.init();
-                }
-
-                if (!supportsCookies()) {
-                    countMessages++;
-                    window.jQuery('#cookiesSupportedDiv').show();
-                }
-
-                if (countMessages === 0) {
-                    window.jQuery('#notifications-count').remove();
-                    window.jQuery('#cas-notifications-menu').remove();
-                } else {
-                    window.jQuery('#notifications-count').text(`(${countMessages})`)
-                }
-            });
-        })(typeof mdc !== 'undefined' && mdc);
+    <script type="text/javascript"
+        src="/cas/webjars/material-components-web/14.0.0/dist/material-components-web.min-3c99031127092dd1984f2e3aa6aeed8b.js"></script>
+    <script type="text/javascript" src="/cas/js/cas-db49925fa749fe816f58b860a0fa163f.js"></script>
+    <script type="text/javascript" src="/cas/js/material-9b2c7d303fa5c0adbd33444b7d050d16.js"></script>
+    <script type="text/javascript" src="/cas/js/custom-63dd40a49197131d92472a1288f662f6.js"></script>
+    <script>
+        if (typeof resourceLoadedSuccessfully === "function") {
+            resourceLoadedSuccessfully();
+        }
+        let trackGeoLocation = false;
     </script>
-</div>
+
+    <div>
+        <header role="banner" style="position:relative;">
+
+            <div class="top_header">
+                <div class="container">
+                    <div class="pull-left">
+                        <div class="menu_top_header">
+                            <span><a href="https://www.universita.corsica" class="hidden_md">Università di
+                                    corsica</a><span
+                                    class="hidden_md">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><label
+                                    for="nosportails_menu" class="nosportails">Nos Portails &nbsp;&nbsp;:</label></span>
+                            <input type="checkbox" id="nosportails_menu">
+                            <ul class="animated slideInDown">
+                                <li><a href="https://studia.universita.corsica">Étudiants</a></li>
+                                <li><a href="https://portail.universita.corsica">Personnels</a></li>
+                                <li><a href="https://ricerca.universita.corsica">Recherche</a></li>
+                                <li><a href="https://pro.universita.corsica">Partenaires pro</a></li>
+                                <li><a href="https://fundazione.universita.corsica">Fondation</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom_header">
+                <div class="container">
+                    <a href="https://portail.universita.corsica/" class="logo"><img
+                            src="https://portail.universita.corsica/template/template_back_office/images/logo.png"
+                            alt="logo"></a>
+                    <div class="baseline">Authentification | <span>Campus numérique</span></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+
+        </header>
+        <div id="logindrawer">
+            <aside id="app-drawer"
+                class="mdc-drawer mdc-drawer--dismissible mdc-drawer--modal offcanvas offcanvas-start">
+
+                <div class="mdc-drawer__header offcanvas-header flex-column">
+                    <h2 class="mdc-drawer__title offcanvas-title">CAS</h2>
+                    <div class="mdc-drawer__subtitle offcanvas-title">Central Authentication Service</div>
+                </div>
+                <div class="mdc-drawer__content offcanvas-body">
+                    <nav class="mdc-list list-group list-group-flush">
+                        <a href="/cas/actuator" class="mdc-list-item list-group-item list-group-item-action">
+                            <i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;
+                            <span class="mdc-list-item__text">Actuator Endpoints</span>
+                        </a>
+                        <a class="mdc-list-item list-group-item list-group-item-action"
+                            href="https://apereo.github.io/cas">
+                            <i class="fas fa-file-code" aria-hidden="true"></i>&nbsp;
+                            <span class="mdc-list-item__text">Documentation</span>
+                        </a>
+                        <a class="mdc-list-item list-group-item list-group-item-action"
+                            href="https://github.com/apereo/cas/pulls">
+                            <i class="fas fa-code-branch" aria-hidden="true"></i>&nbsp;
+                            <span class="mdc-list-item__text">Pull Requests</span>
+                        </a>
+                        <a class="mdc-list-item list-group-item list-group-item-action"
+                            href="https://apereo.github.io/cas/developer/Contributor-Guidelines.html">
+                            <i class="fas fa-info-circle" aria-hidden="true"></i>&nbsp;
+                            <span class="mdc-list-item__text">Guide pour les contributeurs</span>
+                        </a>
+                        <a class="mdc-list-item list-group-item list-group-item-action"
+                            href="https://apereo.github.io/cas/Support.html">
+                            <i class="fas fa-question-circle" aria-hidden="true"></i>&nbsp;
+                            <span class="mdc-list-item__text">Support</span>
+                        </a>
+                        <a class="mdc-list-item list-group-item list-group-item-action"
+                            href="https://apereo.github.io/cas/Mailing-Lists.html">
+                            <i class="fas fa-envelope-open-text" aria-hidden="true"></i>&nbsp;
+                            <span class="mdc-list-item__text">Listes de diffusion</span>
+                        </a>
+                        <a class="mdc-list-item list-group-item list-group-item-action"
+                            href="https://apereo.github.io/">
+                            <i class="fas fa-newspaper" aria-hidden="true"></i>&nbsp;
+                            <span class="mdc-list-item__text">Blog</span>
+                        </a>
+                    </nav>
+                </div>
+            </aside>
+        </div>
+
+        <script>var countMessages = 0;</script>
+        <div class="mdc-dialog cas-notification-dialog modal" id="cas-notification-dialog" role="alertdialog"
+            aria-modal="true" aria-labelledby="notif-dialog-title" aria-describedby="notif-dialog-content">
+            <div class="mdc-dialog__container modal-dialog">
+                <div class="mdc-dialog__surface modal-content">
+                    <h1 class="mdc-dialog__title mt-lg-2 modal-header modal-title" id="notif-dialog-title">
+                        Notifications
+                    </h1>
+                    <div class="mdc-dialog__content modal-body" id="notif-dialog-content">
+                        <div id="cookiesSupportedDiv" class="cas-notification-message mdc-typography--body1"
+                            style="display: none">
+                            <h6 class="mdc-typography--headline6 fas fa-exclamation-circle">Cookies navigateur
+                                désactivés</h6>
+                            <p class="text-wrap small">Votre navigateur ne supporte pas les cookies. La capacité du
+                                navigateur à stocker ou lire des cookies est essentielle pour que l’authentification
+                                unique fonctionne. Veuillez consulter les paramètres de votre navigateur et vous assurer
+                                que la prise en charge des cookies est activée.</p>
+                        </div>
+
+                    </div>
+                    <footer class="mdc-dialog__actions modal-footer">
+                        <button type="button" class="mdc-button mdc-button--raised mdc-dialog__button btn btn-primary"
+                            data-mdc-dialog-action="accept" data-mdc-dialog-button-default data-bs-dismiss="modal">
+                            <span class="mdc-button__label">OK</span>
+                        </button>
+                    </footer>
+                </div>
+            </div>
+            <div class="mdc-dialog__scrim"></div>
+        </div>
+
+        <script type="text/javascript">
+
+            (material => {
+                let header = {
+                    init: () => {
+                        header.attachTopbar();
+                        material.autoInit();
+                    },
+                    attachDrawer: () => {
+                        let elm = document.getElementById('app-drawer');
+                        if (elm != null) {
+                            let drawer = material.drawer.MDCDrawer.attachTo(elm);
+                            let closeDrawer = evt => {
+                                drawer.open = false;
+                            };
+                            drawer.foundation.handleScrimClick = closeDrawer;
+                            document.onkeydown = evt => {
+                                evt = evt || window.event;
+                                if (evt.keyCode == 27) {
+                                    closeDrawer();
+                                }
+                            };
+                            header.drawer = drawer;
+                            return drawer;
+                        }
+                        return undefined;
+                    },
+                    attachTopbar: drawer => {
+
+                        drawer = header.attachDrawer();
+                        let dialog = header.attachNotificationDialog();
+
+                        if (drawer != undefined) {
+                            header.attachDrawerToggle(drawer);
+                        }
+                        if (dialog != undefined) {
+                            header.attachNotificationToggle(dialog);
+                        }
+                    },
+                    attachDrawerToggle: drawer => {
+                        let appBar = document.getElementById('app-bar');
+                        if (appBar != null) {
+                            let topAppBar = material.topAppBar.MDCTopAppBar.attachTo(appBar);
+                            topAppBar.setScrollTarget(document.getElementById('main-content'));
+                            topAppBar.listen('MDCTopAppBar:nav', () => {
+                                drawer.open = !drawer.open;
+                            });
+                            return topAppBar;
+                        }
+                        return undefined;
+                    },
+                    attachNotificationDialog: () => {
+                        let element = document.getElementById('cas-notification-dialog');
+                        if (element != null) {
+                            return material.dialog.MDCDialog.attachTo(element);
+                        }
+                        return undefined;
+                    },
+                    attachNotificationToggle: dialog => {
+                        let btn = document.getElementById('cas-notifications-menu');
+                        if (btn != null) {
+                            btn.addEventListener('click', () => {
+                                dialog.open();
+                            });
+                        }
+                    }
+                }
+                function supportsCookies() {
+                    try {
+                        document.cookie = 'testcookie=1';
+                        let ret = document.cookie.indexOf('testcookie=') !== -1;
+                        document.cookie = 'testcookie=1; expires=Thu, 01-Jan-1970 00:00:01 GMT';
+                        return ret;
+                    } catch (e) {
+                        console.log(e);
+                        return false;
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    if (material) {
+                        header.init();
+                    }
+
+                    if (!supportsCookies()) {
+                        countMessages++;
+                        window.jQuery('#cookiesSupportedDiv').show();
+                    }
+
+                    if (countMessages === 0) {
+                        window.jQuery('#notifications-count').remove();
+                        window.jQuery('#cas-notifications-menu').remove();
+                    } else {
+                        window.jQuery('#notifications-count').text(`(${countMessages})`)
+                    }
+                });
+            })(typeof mdc !== 'undefined' && mdc);
+        </script>
+    </div>
 
     <div class="mdc-drawer-scrim"></div>
 
     <div class="fade-in mdc-drawer-app-content mdc-top-app-bar--fixed-adjust d-flex justify-content-center bgimage">
         <main id="main-content" class="container-lg py-4">
             <div id="content" class="justify-content-center">
-     
-   <div class="justify-content-center  flex-column mdc-card mdc-card-content card flex-grow-1"
-         style="padding: 20px">
-            <div id="etu_pers_vacataires">
-                <span style="color: #ff5522;"> &gt; Vous êtes étudiant, personnel, vacataire ou ALUMNI de l'Università di Corsica</span>
-            </div>  
-            <div class="d-flex flex-column justify-content-between m-auto">
 
-        <div>
-            <!--  <div class="service-ui" th:replace="~{fragments/serviceui :: serviceUI}">
+                <div class="justify-content-center  flex-column mdc-card mdc-card-content card flex-grow-1"
+                    style="padding: 20px">
+                    <div id="etu_pers_vacataires">
+                        <span style="color: #ff5522;"> &gt; Vous êtes étudiant, personnel, vacataire ou ALUMNI de
+                            l'Università di Corsica</span>
+                    </div>
+                    <div class="d-flex flex-column justify-content-between m-auto">
+
+                        <div>
+                            <!--  <div class="service-ui" th:replace="~{fragments/serviceui :: serviceUI}">
                 <a href="fragments/serviceui.html">service ui fragment</a>
-            </div>--></div>
+            </div>-->
+                        </div>
 
-        <div class="form-wrapper">
-            <div id="loginErrorsPanel" class="banner banner-danger alert alert-danger banner-dismissible text-justify" style="display: none;">
-                        <p>Mauvais identifiant / mot de passe. </p>
-             <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
-            </div>
+                        <div class="form-wrapper">
+                            <div id="loginErrorsPanel"
+                                class="banner banner-danger alert alert-danger banner-dismissible text-justify"
+                                style="display: none;">
+                                <p>Mauvais identifiant / mot de passe. </p>
+                                <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
+                            </div>
 
-            <form method="post" id="fm1">
-                <div id="login-form-controls">
-                    <!--<h3 th:unless="${existingSingleSignOnSessionAvailable}" class="text-center">
+                            <form method="post" id="fm1">
+                                <div id="login-form-controls">
+                                    <!--<h3 th:unless="${existingSingleSignOnSessionAvailable}" class="text-center">
                         <i class="fas fa-shield-alt"></i>
                         <span th:utext="#{screen.welcome.instructions}">Enter your Username and Password:</span>
-                    </h3>--><section class="cas-field form-group my-3" id="usernameSection">
-                        <label for="username"
-                               class="mdc-text-field mdc-text-field--outlined control-label w-100 ">
-                            <span class="mdc-notched-outline">
-                                <span class="mdc-notched-outline__leading"></span>
-                                <span class="mdc-notched-outline__notch">
-                                    <!-- <span class="mdc-floating-label"
-                                          th:utext="#{screen.welcome.label.netid}">Username</span> --><span class="mdc-floating-label  mdc-floating-label--float-above"
-                                          style="background-color:#ffffff"><span class="accesskey">I</span>dentifiant :</span>
-                                </span>
-                                <span class="mdc-notched-outline__trailing"></span>
-                            </span>
-                            <input class="mdc-text-field__input form-control" id="username"
-                                   size="25"
-                                   type="text"
-                                   accesskey="i"
-                                   autocapitalize="none"
-                                   spellcheck="false"
-                                   autocomplete="username" required name="username" value=""/><div class="mdc-text-field-helper-line invalid-feedback">
-                                <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
-                                    <span id="usernameValidationMessage">Vous devez entrer votre identifiant.</span>
-                                </div>
-                            </div>
-                        </label>
+                    </h3>-->
+                                    <section class="cas-field form-group my-3" id="usernameSection">
+                                        <label for="username"
+                                            class="mdc-text-field mdc-text-field--outlined control-label w-100 ">
+                                            <span class="mdc-notched-outline">
+                                                <span class="mdc-notched-outline__leading"></span>
+                                                <span class="mdc-notched-outline__notch">
+                                                    <!-- <span class="mdc-floating-label"
+                                          th:utext="#{screen.welcome.label.netid}">Username</span> --><span
+                                                        class="mdc-floating-label  mdc-floating-label--float-above"
+                                                        style="background-color:#ffffff"><span
+                                                            class="accesskey">I</span>dentifiant :</span>
+                                                </span>
+                                                <span class="mdc-notched-outline__trailing"></span>
+                                            </span>
+                                            <input class="mdc-text-field__input form-control" id="username" size="25"
+                                                type="text" accesskey="i" autocapitalize="none" spellcheck="false"
+                                                autocomplete="username" required name="username" value="" />
+                                            <div class="mdc-text-field-helper-line invalid-feedback">
+                                                <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg"
+                                                    aria-hidden="true">
+                                                    <span id="usernameValidationMessage">Vous devez entrer votre
+                                                        identifiant.</span>
+                                                </div>
+                                            </div>
+                                        </label>
 
-                        
 
-                        <script type="text/javascript">
-                            /*<![CDATA[*/
-                            let username = "";
-                            let disabled = false;
 
-                            if (username != null && username !== '') {
-                                $('#username').val(username);
-                                if (disabled) {
-                                    $('#usernameSection').hide();
-                                }
-                            }
-                            /*]]>*/
-                        </script>
-                    </section>
-                    <section class="cas-field form-group my-3 mdc-input-group form-group" id="passwordSection">
-                        <div class="mdc-input-group-field mdc-input-group-field-append">
-                            <div class="d-flex caps-check">
-                                <label for="password"
-                                       class="mdc-text-field caps-check mdc-text-field--outlined control-label mdc-text-field--with-trailing-icon control-label w-100">
-                                    <span class="mdc-notched-outline">
-                                        <span class="mdc-notched-outline__leading"></span>
-                                        <span class="mdc-notched-outline__notch">
-                                            <!-- <span class="mdc-floating-label" th:utext="#{screen.welcome.label.password}">Password</span> --><span class="mdc-floating-label   mdc-floating-label--float-above" style="background-color:#ffffff"><span class="accesskey">M</span>ot de passe :</span>
-                                        </span>
-                                        <span class="mdc-notched-outline__trailing"></span>
-                                    </span>
-                                    <input class="mdc-text-field__input form-control pwd"
-                                           type="password"
-                                           id="password"
-                                           size="25"
-                                           required
-                                           accesskey="m"
-                                           autocomplete="off" name="password" value=""/><div class="mdc-text-field-helper-line invalid-feedback">
-                                        <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
-                                            <span id="passwordValidationMessage">Vous devez entrer votre mot de passe.</span>
+                                        <script type="text/javascript">
+                                            /*<![CDATA[*/
+                                            let username = "";
+                                            let disabled = false;
+
+                                            if (username != null && username !== '') {
+                                                $('#username').val(username);
+                                                if (disabled) {
+                                                    $('#usernameSection').hide();
+                                                }
+                                            }
+                                            /*]]>*/
+                                        </script>
+                                    </section>
+                                    <section class="cas-field form-group my-3 mdc-input-group form-group"
+                                        id="passwordSection">
+                                        <div class="mdc-input-group-field mdc-input-group-field-append">
+                                            <div class="d-flex caps-check">
+                                                <label for="password"
+                                                    class="mdc-text-field caps-check mdc-text-field--outlined control-label mdc-text-field--with-trailing-icon control-label w-100">
+                                                    <span class="mdc-notched-outline">
+                                                        <span class="mdc-notched-outline__leading"></span>
+                                                        <span class="mdc-notched-outline__notch">
+                                                            <!-- <span class="mdc-floating-label" th:utext="#{screen.welcome.label.password}">Password</span> --><span
+                                                                class="mdc-floating-label   mdc-floating-label--float-above"
+                                                                style="background-color:#ffffff"><span
+                                                                    class="accesskey">M</span>ot de passe :</span>
+                                                        </span>
+                                                        <span class="mdc-notched-outline__trailing"></span>
+                                                    </span>
+                                                    <input class="mdc-text-field__input form-control pwd"
+                                                        type="password" id="password" size="25" required accesskey="m"
+                                                        autocomplete="off" name="password" value="" />
+                                                    <div class="mdc-text-field-helper-line invalid-feedback">
+                                                        <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg"
+                                                            aria-hidden="true">
+                                                            <span id="passwordValidationMessage">Vous devez entrer votre
+                                                                mot de passe.</span>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                                <button class="reveal-password  mdc-input-group-append  bouton"
+                                                    tabindex="-1" type="button">
+                                                    <i class="fas fa-eye reveal-password-icon"></i>
+                                                    <!-- <span class="visually-hidden">Toggle Password</span>--></button>
+                                            </div>
+
+                                            <div class="mdc-text-field-helper-line caps-warn">
+                                                <div
+                                                    class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg text-danger">
+                                                    <span>La touche Verr. Maj. est activée !</span>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </section>
+
+                                    <section class="cas-field form-group my-3">
+                                    </section>
+
+                                    <section class="cas-field">
+
+                                        <input type="hidden" name="execution"
+                                            value="a51223d8-6ff6-4244-83d2-40d5540dac3e_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0lzSW10cFpDSTZJbVJsT1dKbFlqRmtMVEJsT0RZdE5ESTBZeTFpT0dZMUxUTm1ZVGRpTVRaaE1HVTJOU0o5Li1xaTNqT1UxbWpWZkt4eFhScm4wSlhhaXpYd21CY3QxMW1HLVNfLUh2MVRuTUJvS0RiV0xMLWR4QmZmMG9mNXdKbWp2MkNUdEhlbDE0eENTZ255WXA0dGo3ZHBFdUpUR2dGZjN0Q1dRMU9CanRucUhZU2lqQjdSUGxiblRGckJOWjh3WW1GWjdkY2lfd3B0R1h1WVBpTnh4UFFuUmVjdldCQURoWU5icXdvRVkyc0R4S3BfZ1NMVHRKdVdSMnVJTEQtVDB4Ry1PcjhDdldmcDFXSi01SVpfX1lJV2NiOUduYUpobUNlcnVUdk9xR1ZqcXRHYlAzc2FqVkxCam85WHktLUR5UmRtSFFPa01DVkhUVXRJR1I5bXRFNUJvRnhPQVRGSk9PMUJweWJwa2YyaHgxTXQzZE15MUdtZ1dGc1IwZ0E2ZVAwUXdZZGVLdlZ2MlcwS2R6WkNLYVR0c0c2Tm1jN0NyYjBLU0Q0cHpsUzZnRVl5dFFOWndQNFhPcDJZTWQzcTdBSHdUSHRtOU1Ec1FXZl9XdEtOcUpkWEk5ZTdJSFlzbXh0TWhDcE5sVFBoVGJCT1VmTklycnBJOWlYaDJhZEg4ZlFMWTZIMk5seGtDVm9mWlpvZXZOYXc0Vm9QaEpxZ29mZW9ESmN5Q29mNFNYWk5VMFNjWWdBZDZ0Q0RZem5WcGk1VWtXa2xBanlLWEY0QTAxenplTVh3R2tMYXNnN01JWWtRM0RUeF9LRmRkWC1lMVJrbm54YXJRX1ZvUW43SFJ1QmFKWGlCdWY5RzR3ZlJldXExdm5uTnlLZzNRUFlfTVlqV2RiaWY1SkJDcDhkOWxqQktNd3JZVHBrazVrN19uVmw1MkpfYmI1RUFvNXE3aHEyNWViejBOMlAtU0k1YTBUb0FJbHc3SUFQSjZST2NGQlRPT3dweWNvYjlkOHdSY1JVUmpMZmR2bEI4SkdxVHdudTc5cm9ZRzQyYWR6YUdENFRBRGF0VGdXRG44REhVRVFqbHBBSWw5Ym92U1NycFRlSTFxR2JEcWdmTUVVY2l6ZGRhalR1UkRhS3B3Q0RvbDYwbjc5MWhNN2FMS25iVkh2OTJvMkt3QnBLUjF1dENBS3ZmX2JTUGVyQ0pGTThsRnFQdXFfcVhPd0pYSzZGcEdNWDBITHAtQTZvNG5aZHdROUlDS042dk43MGJ1d2wzVUpKNGt4cVNUZHZzcUIxeDVWaUJ4NHRZMFN5MkdJbktNbkJ4b0htZFlLdmRIZTYxVnVobTRSLTBLOWtqNF9oNjBtX0hYcnZZLWpQekhZV2UyV2syaXgxSFF6U04yREdmTTNKN2s3Vkx1UmQ2TW5PQUVoWTl5MlpMYzhILUZwQnM0YWcydUNWMHZBS2pjRThaUkg5VzlNeWNvWnh4V09obDMtVW53dXluNTdZX2xlRmZqUUl5RFVxUUFybUI3ZnNwd0wxVGhvMHdQa3lISkNDSnVVUVNfeEFmTlRtWnhJbTYzQ2t0VUtaMGlRTG0xNWpkajc4YWRhcFZLZ2xmWVZjbmtuMFJPM3hKUjE1eE12T1gtUFMtVDM2RE1PVnZfd0pwTjQzZ1ZPZ09EX1R2NDd5OEU0TTVncXBtSWNLREh5dzFDdmpDWkRNOUlXM2hmUDFEZmVydy0xUjI3OWNaSkk5NFdlb1o3b21QYlRhZzVQWVFqbFRTamVLUy1UU00wb0hiYlMydVU0T1VVX1FpcThpSENmWjl3Nzd5bW1SNGtRNDViVm1BREN4dkRVYkxfSDhPYUlDNFBZZmtQeWVXZVRjeTJWMWs0bmhWVTROTlVtS1Q5QTZ6aHNUSUlFX1B2ZGhkMElLdWVMdzFfVjNjaWR3VHl0OUx2Sk9TZzRaNHB5c3RwSUVvaVpFT3FSbFlpdDdUTWJWMGlIOTBqbU9oSnpNVHhwa0JMX2gwM3BDWmZTM2RuUmNaUzlnU3hJNUNTRG1JSjhfVE5KcHdyVEw5cXcwN3phc0ZkaEE2aHVjNU9odVFmNk5sdFhiek4wbDJHU0NFMjFKVmsyVU5kcTdjVDJjVDZNQlNtaG1FaFpSV2Z5bm8tOHdVQW1nMk53WHJDd2dsMkd3dEROQ2lPbElRZ25TYXNTbVZWVXdJcjdLSktfYzJ3SHZ1WVJhOUpkTWZUWGdZa1FMMlNINE9ZbG9XTkJkTEdsWUVmYmhDWGFBZVpKM0g4Nk9Oa2lIS21qRGRBTm9lUTlXUWp3bzVHUVo4Qk9WTFM5cTRTb2ZKbHFpRFZpV21Dd1FhTWxSMWNReDQ0NkJEUFVtRjVlWmdscVlYdnNsWW1qTWxoXzQzZnhzLVo3WFpiTFp3bmE0YTFBTEdUUVJ5QWNXVkE1LWhwTzJrM3JISGJzREUyb0JSNzA3Ri1xLUVvR0JaYTUtX3RpemJaN2ZyOGxRU3R0MjdQTVktMktVZHltVXZJUlcweUswdF9rSUpza2o4cVZzbmh3Y2pWN1ZUaHd3VlcwbTVKdTdnQXJiUTZXTENOemdfUmtfOUVpQUdnSDBSalVaWkxPUkZQX2pHUVlINmd0MmFpcWxoYkNkajZzdWpuUkJvOXFmRS1KQ0E5ZzhydGZJV3BZc3NhdzRqSzBTaEFncXc0YUtGMUkxa1prbkZfZWhtLUVrREp1bDQyNVdoSFpvbFU5VEE0SEJFaDhVLWpGUUxCN1hQQzlOM3FJS2E1T3Y0Mi11TlhaSWlZUjZlaDdYQ0l1WDJqbVdGYzNWUW9MTzN0aTRTYjQwcVNSU2M4NktwbnF1WVo4ZWVmUS1id2huek11SDliZmE5WXQyZ3NxVnVkUGdwRVB0LXZucjc0TlZ6aFplN1FwWUxxQ0NrR2dFcXNNc1JMQlQ3a1EzLTF5QlRXbXNraEk3SlAxM3FBYjlpREdnZVVnSjZ1LS1HV0dMZGNBalM1U2JOWkRIN0RiRlNjdWlLVDJtOEtLSldDU3llZVdsU1hNUC10amk1WkIyMmFTWWFXZkxncktYQ1RsVlBMbW5aNEhudHJyakU5dU1VREFKQ0F6OE9sWXBvX21STFVWYnp1MDFWdVRoS0s3TnBUX2hKYlA1ZWRiMWg5YUx0RVQwUzBOS1NZUlFFb1RWTWlhNE9WbWdvVWxWNTN3NHE0ZWg3Mm5yRnh4SFVmS3NieEV1SGMyT1FQVEV5ZS1qdVZFLUVQSDZBT1B6TTc4YUtVdktFd3lzSWNaYXNSd212RktqcUZwZjZPdThwY05wWWduSzFUMHppelpjSzlRWU50MG5SN19xeENjSENNTWFPN0E0SlBieUx0TkxjOFVBR2lfaHVSTFJfUFdUMGdXenFWYlUtXy1aandBeWxKVjBiVjZXT1JKc2VrSVRVVFUzX1JueUhDLXJKSGs3ZFZPNjdVVk5JeW81Vmd2V3Y5SzZmOG12REdCUVdnSll2X2R0S09tOXdMb09aX3VRTnRvX0s4MGRFUkxCWUFRV1B3WV9XRHAzTGJlWXNoTmgwVmUxNzR4UU53TmJPZlhmY3JRZWVMbWtjOWhERUxUTEoyS3cyWXFlVEZjU1hxQ2xFT21CQWM5cXBuZmxZSXJFeVdQazd0OFVFc3RzLWc2aGJOdTdMbjF1c0hwbkJEQnBCMG10cVA5OEdVajNHM0w3LVZzSUg5c1N2R0tGTC1INGcxaVZEUXdKQ2ZFYTlvLXBQWmRjX0lwZXh5UzVUZDJ2QnpPc3l2a0NoWU1rVzRWS0IwekJiOFdmVWQ2UE50RjZhbFI4NXVEeldyYTh6SDBseXVNOGxheW5JV0xRU0FsZ3laNmVDV3BCMEg0MTl5Y1pnOGNqaXdiQWxyTHVENXFkaVhJM3VVY01uUG9TYUE0N0pYb1BvT0R0Zm5UTGxjLVNCb2RDck9LT0ZtTVZzX09XblhkNHl3N0JFTzdVdUk2NXFLUXJuYTNmTzFWNWZfb0xYeWJCXy1OUVo2NzNESXJmQlFKSXFjNkVCRW5SY09SNGM4aktsMVByejRDUm1NLU9KMlZ5dTZyQ1lSeDI5UFItQkQxU0lHbEVIYV92ajhvSjJZakhwc2thYkVEdV9pdVZrZC1yRVg5M19UOU5DdXpHTERiTDFwcGZrR3FOZFpTTC1KcEg2RGtpcDAzOWxtTWZTSUs4dE16TEl0bDBjc1FHZ3FSSkZQN01EVVM5TjNjdm44Y3h4b0VnaE4zRndmdWZ6eTVwX0s4YjRCU2h3Z01ma2xfSURJeXVPQThHR2ZrcXRheXRsaHlxYnZ6aTBWeUJZcVlfOWRCeUkzUlp4UjR6SG1QQ3dLZEtUNkVkQUk4QVJMVUZ2UnFlQVY3c2dRZ3lzUXBGSlFabkVTZ1FSLWdxV09PdkFqSTNOa2UzcGdMVHJyUnA0WWN6d29KejBXcTVUMFZZSGdlUWwwNUxFdmRwRFlUSjFTVzlYaFMyWUFuQWdpelByVWxfR295eVAtcndQcVg1WGdQSVFLNzlHaWE1T24wUUJjVDhyYkxMNF91S2ZMYmhwOVc4Zk1kVnNYLVJBT09kR2c0c09oUm9jeUtXUkRSbldDX0VxRlE1cGJ5RWtrbUs2ZlNpWWFFX0tXSThxclRDX3dZLU9pMXBVXzNkcjVlNGYwMkdza0Z5ZDlydlFkZmlCOE5McW5uYUQtQjh6ck0wZ0xmSUMxTFUtS0NaUjFfcUtxVk5vTVIzVTVMU1pJZzZ4S01CUXlsbHVxWk1FalNNNllWWEljd2R0UTJqbGxMdmJtSEVVZndSeHNRQ3R4YlY2MzZEWXpOSjZwSTlBRWhpVDd1VXd5MEl3d1RpR2k5U1M0X0p0Y0VOa2NTM2I1SVJuYzRBUzF1MGw2cWZpSkExaFg1Q29qU2tKa0Q0c3BqVWY3OEMybUhtaWw3X3RNd3ZDRTRMcHloaHZxU19FWlVwYjJESl82Qm4yeTJtaUNCMmRSZDh4YzRoMXp0M0pxWUVDYVRQaU0ycGxiLXJpa1ZZRmdUcmlZQlQ2cW5vSldTZkV1U2dRWUM5NHAzUXZuZDhSQXBlb1lvcnAyQUtpTjl4WjNScXdtRXBENmd3UDNadGhZZlJqTFR4T0o5QTFSc2pyWG5oRldKTGlSUExGNjBHc0lmZzF6blhPcHZITFZjeV9oeW42TjVhUDZGU1RjcjhpQi1aMzl0a2otR1Iydmp5VGJ1b0phR1BDcWFrVjlaVXQydkdfQjhqeVdmZWpKSktIYmJEVjRfc3VWYU01T0ZyY3VzSWZTYll6OEhxT2FyVGFEMW1PTlh5emw5YmRQdHhWVFlPdGM5Q1lTQnVSLWhGdDJhWk4wZmdaRGxuZDhSeVBMaGFCZUNXQlBYaWpyMFVnSFpKc203Mi1FY2tZU2xrU2UtYnB4TnVYQWd2eWl4R1JhZ3U0RllEMWhWNlZCSTZMb095WVp3X3RnRDhhS0ZPTll6WVRRbW5hajJhcmFtOGJsYU5PTFpyeF9CSFBjeFJqVHpyeDhsVWxXSFJGaGllZWIyTW9WNDgxdmJnOE1CbFhsMUdWY0d3ZFZJRDJfMklyWUI5VVNKTFpMMXNialRMN254S3NTRS1XMGFESzk5SGlzUTBxMkYyWmJlQzYwcW5FNzBlOE1kd21jdWhQd0NZUVd5MENtdTV5SllZLXRoYlVEczVBTzhXaGZxT0JkQkMtWUhWSW1UaG1iX05KTERvT09feDRVRjNYWkRmOHVGdnh5MUhlNnVjTTUxNzNaMUNFVll2dVBWS0VwVFZzc1YzdnBPeUZoakc1QkFUQVhCY0NqMkVQVmFuZWp3ZXdiNkVXS1Z1eldLTmFsRFBIMHBKOEZQdWZJLWdyd1VjTUxpeHMtSEwzd2NzWTVzc0NEenE0d0NEOU5MTm9nQVNkcGQtMXlfcmZ4c0hEVDBwMkZPZkNCZFAtd0dWVV90MDd1bjVhRzRzU29vR1dYcDBhaWcwVThUN3lXNHNKSnI5bXpJbTNwanpSeUo4aU9CMUVPMFpXY3UtclNpSmxOOWhoY3d4U29wTjVQMzk2Qjl2NWJBZUpDdzlpNjdxa25rcWtjMG1lU1hSaHoxRTJXN05QY3NiaXpxVURqdHA2dmNLOWE0eHU3UDV1Z1dlR3BGUGVsbjloZGU1OFZFNmNUMERzbXVTQkhtNklneFJSYlNUSWE2R3BtT2Qxd3Zra3NPNTlFM2g5aE9qMUFUR2psYjVwZ2hwMDNQaThaS3l2NFdjUnUtSlJSR2dLb3p6UU82SkpZWmNfeDFlRi13Z2xUN0Q2eF9VSXptNEhYVXFCU0ROV1FrNGE0ZDBuMjQzUEIwalhmbFBQbWJHbURNalVBbmIyc1Zic1ZwY1NoMW9vVzMzQjhNRnNURGZXOXNOc2sxZ2VMdzJHTUFmV01fUEM4TkoxQlhHXzM5Tld3WThyOTBLNWZaWms5TEtCT0lzUWppQzE0ZTE3bGotVVJaT2puYl8wTXFpQ0ZGa3pkSmVsNmstY1QtRFNmbndza255UThBZDRfLVI2MmR6ei1sY1M4aWRFSl9MUDhqSTd6NTZTMFBxTEhkWFpvb2tZVWZfSkxuVFZPQnNGQVZPNEx4NEYwbXgxNGw1ZnNJNDdNUVQtT1RhSmFIaGh2UmIweE5BS1h5VjZXdjg4bjVZQkwwcTRZaVROZjRtT1ZkQlpGR1Z1bUtJZ2xxSnRXTzA3WmZYOGV0LXpuRGdrQzYyZWoyZzhlZGJRYlRZRmNteFhtcEVkNHpaMFo3djR4VjdnWE8wVHJLRUdLaWtSbFdpV1UtMktkYTM4UEwxT1JjcEN5N1hMQ0RrMVl6SzVGaXZHVlVRQy0xRDRSMk1Nam5vQ1pVcFk3UkRtUUdPV0pjT3NPRTM3SDRFd2JvSGNEbm5Tek9qREtQSzdyOHRzLWJpS0ZpSmF0eG1QWlZpZ19MWjFFcUhfSTlkNmEtbkttWUgydERUNVhGcHZSUXNrT3lSQjZpLTJRbXhWQVEySHpiVFg2c0Rtbl9lc0JYSUpUQS1pZG1vUE9JdWE0c0pSbkJGZlJVUGoyS0c5VjR4YzAtTUtUVzZjcHh4QnVqYy13d0pVaDBOM1Jtc1NNUjVUWWgxaVU4TVZqM05Oang0Wnh1TGNZaU5wa3JwelNZdGdiVWJMR1VCYXVHRDNuZTJvYkVyNmVaS0E4MWRveEpJbjYxemtoblhkUFhrRkM5VXh4eHhuT0NpN2E2NXNQQ0xnM2NvbHF2TFBzejFpM1RJZmdrcnZhOEZTUThtNm1LaE14d2hpV3J1LVRXS3hNT2NrbmxaQXJEV1pZS2lUcEdYQ2hpU3NTNVVPbTljSjNCNHMub09jRjJQTGpuYmMxX2JVdTJGSVhPQmNhUnZlYWhjOHd2VV9ZZHFDaE5XZWZraF91ZUhRWUJPa2VRVGdHeDdaNTNJUmJ4WERkWlB4MUlfbmhDdjVqVVE=" /><input
+                                            type="hidden" name="_eventId" value="submit" /><input type="hidden"
+                                            name="geolocation" />
+                                    </section>
+
+                                    <button class="bouton" name="submitBtn" accesskey="l" type="submit">
+                                        <span class="mdc-button__label">Se connecter</span>
+                                    </button>
+
+                                </div>
+                            </form>
+
+                            <!--<hr th:if="${loginFormViewable and loginFormEnabled}" class="my-4"/>--><span>
+                                <div id="pmlinks" class="my-2">
+                                    <div>
+                                        <br /><span class="mdi mdi-account-question"></span>
+                                        <span><a
+                                                href="https://activation.universita.corsica/guichet_activation_reset_compte-front.php?acces=ok&profil=&id_site=0&type=changement">Mot
+                                                de passe oublié ?</a></span>
+                                        <a href="https://dsin.universita.corsica/plugins/faq/listing_faq-front.php?id_faq=5&acces=ok&id_art=4515&id_rub=0&id_site=47&id_menu=0&header_plugin=ok"
+                                            target="_blank">Besoin d'aide ?</a>
                                     </div>
-                                </label>
-                                <button
-                                    class="reveal-password  mdc-input-group-append  bouton"
-                                    tabindex="-1" type="button">
-                                    <i class="fas fa-eye reveal-password-icon"></i>
-                                   <!-- <span class="visually-hidden">Toggle Password</span>--></button>
-                            </div>
-                            
-                            <div class="mdc-text-field-helper-line caps-warn">
-                                <div
-                                    class="mdc-text-field-helper-text mdc-text-field-helper-text--persistent mdc-text-field-helper-text--validation-msg text-danger">
-                                    <span >La touche Verr. Maj. est activée !</span>
+                                </div>
+                            </span>
+
+                            <script type="text/javascript">
+                                /*<![CDATA[*/
+                                var i = "Veuillez patienter\u2026"
+                                var j = "Se connecter"
+                                /*]]>*/
+                                $(window).on('pageshow', function () {
+                                    $(':submit').prop('disabled', false);
+                                    $(':submit').attr('value', j);
+                                });
+                                $(document).ready(function () {
+                                    $("#fm1").submit(function () {
+                                        //$(":submit").attr("disabled", true);
+                                        $(":submit").attr("value", i);
+                                        return true;
+                                    });
+                                });
+                            </script>
+                        </div>
+
+                        <span>
+                            <div id="sidebar">
+                                <div class="sidebar-content">
+                                    <p id="securityNotice">Pour des raisons de sécurité, veuillez vous <a
+                                            href="logout">déconnecter</a> et fermer votre navigateur lorsque vous avez
+                                        fini d’accéder aux services authentifiés.</p>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                        </span>
+                    </div>
 
-                    <section class="cas-field form-group my-3">
-                        </section>
-                    
-                    <section class="cas-field">
+                    <span>
+                    </span>
+                </div>
 
-                        <input type="hidden" name="execution" value="a51223d8-6ff6-4244-83d2-40d5540dac3e_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0lzSW10cFpDSTZJbVJsT1dKbFlqRmtMVEJsT0RZdE5ESTBZeTFpT0dZMUxUTm1ZVGRpTVRaaE1HVTJOU0o5Li1xaTNqT1UxbWpWZkt4eFhScm4wSlhhaXpYd21CY3QxMW1HLVNfLUh2MVRuTUJvS0RiV0xMLWR4QmZmMG9mNXdKbWp2MkNUdEhlbDE0eENTZ255WXA0dGo3ZHBFdUpUR2dGZjN0Q1dRMU9CanRucUhZU2lqQjdSUGxiblRGckJOWjh3WW1GWjdkY2lfd3B0R1h1WVBpTnh4UFFuUmVjdldCQURoWU5icXdvRVkyc0R4S3BfZ1NMVHRKdVdSMnVJTEQtVDB4Ry1PcjhDdldmcDFXSi01SVpfX1lJV2NiOUduYUpobUNlcnVUdk9xR1ZqcXRHYlAzc2FqVkxCam85WHktLUR5UmRtSFFPa01DVkhUVXRJR1I5bXRFNUJvRnhPQVRGSk9PMUJweWJwa2YyaHgxTXQzZE15MUdtZ1dGc1IwZ0E2ZVAwUXdZZGVLdlZ2MlcwS2R6WkNLYVR0c0c2Tm1jN0NyYjBLU0Q0cHpsUzZnRVl5dFFOWndQNFhPcDJZTWQzcTdBSHdUSHRtOU1Ec1FXZl9XdEtOcUpkWEk5ZTdJSFlzbXh0TWhDcE5sVFBoVGJCT1VmTklycnBJOWlYaDJhZEg4ZlFMWTZIMk5seGtDVm9mWlpvZXZOYXc0Vm9QaEpxZ29mZW9ESmN5Q29mNFNYWk5VMFNjWWdBZDZ0Q0RZem5WcGk1VWtXa2xBanlLWEY0QTAxenplTVh3R2tMYXNnN01JWWtRM0RUeF9LRmRkWC1lMVJrbm54YXJRX1ZvUW43SFJ1QmFKWGlCdWY5RzR3ZlJldXExdm5uTnlLZzNRUFlfTVlqV2RiaWY1SkJDcDhkOWxqQktNd3JZVHBrazVrN19uVmw1MkpfYmI1RUFvNXE3aHEyNWViejBOMlAtU0k1YTBUb0FJbHc3SUFQSjZST2NGQlRPT3dweWNvYjlkOHdSY1JVUmpMZmR2bEI4SkdxVHdudTc5cm9ZRzQyYWR6YUdENFRBRGF0VGdXRG44REhVRVFqbHBBSWw5Ym92U1NycFRlSTFxR2JEcWdmTUVVY2l6ZGRhalR1UkRhS3B3Q0RvbDYwbjc5MWhNN2FMS25iVkh2OTJvMkt3QnBLUjF1dENBS3ZmX2JTUGVyQ0pGTThsRnFQdXFfcVhPd0pYSzZGcEdNWDBITHAtQTZvNG5aZHdROUlDS042dk43MGJ1d2wzVUpKNGt4cVNUZHZzcUIxeDVWaUJ4NHRZMFN5MkdJbktNbkJ4b0htZFlLdmRIZTYxVnVobTRSLTBLOWtqNF9oNjBtX0hYcnZZLWpQekhZV2UyV2syaXgxSFF6U04yREdmTTNKN2s3Vkx1UmQ2TW5PQUVoWTl5MlpMYzhILUZwQnM0YWcydUNWMHZBS2pjRThaUkg5VzlNeWNvWnh4V09obDMtVW53dXluNTdZX2xlRmZqUUl5RFVxUUFybUI3ZnNwd0wxVGhvMHdQa3lISkNDSnVVUVNfeEFmTlRtWnhJbTYzQ2t0VUtaMGlRTG0xNWpkajc4YWRhcFZLZ2xmWVZjbmtuMFJPM3hKUjE1eE12T1gtUFMtVDM2RE1PVnZfd0pwTjQzZ1ZPZ09EX1R2NDd5OEU0TTVncXBtSWNLREh5dzFDdmpDWkRNOUlXM2hmUDFEZmVydy0xUjI3OWNaSkk5NFdlb1o3b21QYlRhZzVQWVFqbFRTamVLUy1UU00wb0hiYlMydVU0T1VVX1FpcThpSENmWjl3Nzd5bW1SNGtRNDViVm1BREN4dkRVYkxfSDhPYUlDNFBZZmtQeWVXZVRjeTJWMWs0bmhWVTROTlVtS1Q5QTZ6aHNUSUlFX1B2ZGhkMElLdWVMdzFfVjNjaWR3VHl0OUx2Sk9TZzRaNHB5c3RwSUVvaVpFT3FSbFlpdDdUTWJWMGlIOTBqbU9oSnpNVHhwa0JMX2gwM3BDWmZTM2RuUmNaUzlnU3hJNUNTRG1JSjhfVE5KcHdyVEw5cXcwN3phc0ZkaEE2aHVjNU9odVFmNk5sdFhiek4wbDJHU0NFMjFKVmsyVU5kcTdjVDJjVDZNQlNtaG1FaFpSV2Z5bm8tOHdVQW1nMk53WHJDd2dsMkd3dEROQ2lPbElRZ25TYXNTbVZWVXdJcjdLSktfYzJ3SHZ1WVJhOUpkTWZUWGdZa1FMMlNINE9ZbG9XTkJkTEdsWUVmYmhDWGFBZVpKM0g4Nk9Oa2lIS21qRGRBTm9lUTlXUWp3bzVHUVo4Qk9WTFM5cTRTb2ZKbHFpRFZpV21Dd1FhTWxSMWNReDQ0NkJEUFVtRjVlWmdscVlYdnNsWW1qTWxoXzQzZnhzLVo3WFpiTFp3bmE0YTFBTEdUUVJ5QWNXVkE1LWhwTzJrM3JISGJzREUyb0JSNzA3Ri1xLUVvR0JaYTUtX3RpemJaN2ZyOGxRU3R0MjdQTVktMktVZHltVXZJUlcweUswdF9rSUpza2o4cVZzbmh3Y2pWN1ZUaHd3VlcwbTVKdTdnQXJiUTZXTENOemdfUmtfOUVpQUdnSDBSalVaWkxPUkZQX2pHUVlINmd0MmFpcWxoYkNkajZzdWpuUkJvOXFmRS1KQ0E5ZzhydGZJV3BZc3NhdzRqSzBTaEFncXc0YUtGMUkxa1prbkZfZWhtLUVrREp1bDQyNVdoSFpvbFU5VEE0SEJFaDhVLWpGUUxCN1hQQzlOM3FJS2E1T3Y0Mi11TlhaSWlZUjZlaDdYQ0l1WDJqbVdGYzNWUW9MTzN0aTRTYjQwcVNSU2M4NktwbnF1WVo4ZWVmUS1id2huek11SDliZmE5WXQyZ3NxVnVkUGdwRVB0LXZucjc0TlZ6aFplN1FwWUxxQ0NrR2dFcXNNc1JMQlQ3a1EzLTF5QlRXbXNraEk3SlAxM3FBYjlpREdnZVVnSjZ1LS1HV0dMZGNBalM1U2JOWkRIN0RiRlNjdWlLVDJtOEtLSldDU3llZVdsU1hNUC10amk1WkIyMmFTWWFXZkxncktYQ1RsVlBMbW5aNEhudHJyakU5dU1VREFKQ0F6OE9sWXBvX21STFVWYnp1MDFWdVRoS0s3TnBUX2hKYlA1ZWRiMWg5YUx0RVQwUzBOS1NZUlFFb1RWTWlhNE9WbWdvVWxWNTN3NHE0ZWg3Mm5yRnh4SFVmS3NieEV1SGMyT1FQVEV5ZS1qdVZFLUVQSDZBT1B6TTc4YUtVdktFd3lzSWNaYXNSd212RktqcUZwZjZPdThwY05wWWduSzFUMHppelpjSzlRWU50MG5SN19xeENjSENNTWFPN0E0SlBieUx0TkxjOFVBR2lfaHVSTFJfUFdUMGdXenFWYlUtXy1aandBeWxKVjBiVjZXT1JKc2VrSVRVVFUzX1JueUhDLXJKSGs3ZFZPNjdVVk5JeW81Vmd2V3Y5SzZmOG12REdCUVdnSll2X2R0S09tOXdMb09aX3VRTnRvX0s4MGRFUkxCWUFRV1B3WV9XRHAzTGJlWXNoTmgwVmUxNzR4UU53TmJPZlhmY3JRZWVMbWtjOWhERUxUTEoyS3cyWXFlVEZjU1hxQ2xFT21CQWM5cXBuZmxZSXJFeVdQazd0OFVFc3RzLWc2aGJOdTdMbjF1c0hwbkJEQnBCMG10cVA5OEdVajNHM0w3LVZzSUg5c1N2R0tGTC1INGcxaVZEUXdKQ2ZFYTlvLXBQWmRjX0lwZXh5UzVUZDJ2QnpPc3l2a0NoWU1rVzRWS0IwekJiOFdmVWQ2UE50RjZhbFI4NXVEeldyYTh6SDBseXVNOGxheW5JV0xRU0FsZ3laNmVDV3BCMEg0MTl5Y1pnOGNqaXdiQWxyTHVENXFkaVhJM3VVY01uUG9TYUE0N0pYb1BvT0R0Zm5UTGxjLVNCb2RDck9LT0ZtTVZzX09XblhkNHl3N0JFTzdVdUk2NXFLUXJuYTNmTzFWNWZfb0xYeWJCXy1OUVo2NzNESXJmQlFKSXFjNkVCRW5SY09SNGM4aktsMVByejRDUm1NLU9KMlZ5dTZyQ1lSeDI5UFItQkQxU0lHbEVIYV92ajhvSjJZakhwc2thYkVEdV9pdVZrZC1yRVg5M19UOU5DdXpHTERiTDFwcGZrR3FOZFpTTC1KcEg2RGtpcDAzOWxtTWZTSUs4dE16TEl0bDBjc1FHZ3FSSkZQN01EVVM5TjNjdm44Y3h4b0VnaE4zRndmdWZ6eTVwX0s4YjRCU2h3Z01ma2xfSURJeXVPQThHR2ZrcXRheXRsaHlxYnZ6aTBWeUJZcVlfOWRCeUkzUlp4UjR6SG1QQ3dLZEtUNkVkQUk4QVJMVUZ2UnFlQVY3c2dRZ3lzUXBGSlFabkVTZ1FSLWdxV09PdkFqSTNOa2UzcGdMVHJyUnA0WWN6d29KejBXcTVUMFZZSGdlUWwwNUxFdmRwRFlUSjFTVzlYaFMyWUFuQWdpelByVWxfR295eVAtcndQcVg1WGdQSVFLNzlHaWE1T24wUUJjVDhyYkxMNF91S2ZMYmhwOVc4Zk1kVnNYLVJBT09kR2c0c09oUm9jeUtXUkRSbldDX0VxRlE1cGJ5RWtrbUs2ZlNpWWFFX0tXSThxclRDX3dZLU9pMXBVXzNkcjVlNGYwMkdza0Z5ZDlydlFkZmlCOE5McW5uYUQtQjh6ck0wZ0xmSUMxTFUtS0NaUjFfcUtxVk5vTVIzVTVMU1pJZzZ4S01CUXlsbHVxWk1FalNNNllWWEljd2R0UTJqbGxMdmJtSEVVZndSeHNRQ3R4YlY2MzZEWXpOSjZwSTlBRWhpVDd1VXd5MEl3d1RpR2k5U1M0X0p0Y0VOa2NTM2I1SVJuYzRBUzF1MGw2cWZpSkExaFg1Q29qU2tKa0Q0c3BqVWY3OEMybUhtaWw3X3RNd3ZDRTRMcHloaHZxU19FWlVwYjJESl82Qm4yeTJtaUNCMmRSZDh4YzRoMXp0M0pxWUVDYVRQaU0ycGxiLXJpa1ZZRmdUcmlZQlQ2cW5vSldTZkV1U2dRWUM5NHAzUXZuZDhSQXBlb1lvcnAyQUtpTjl4WjNScXdtRXBENmd3UDNadGhZZlJqTFR4T0o5QTFSc2pyWG5oRldKTGlSUExGNjBHc0lmZzF6blhPcHZITFZjeV9oeW42TjVhUDZGU1RjcjhpQi1aMzl0a2otR1Iydmp5VGJ1b0phR1BDcWFrVjlaVXQydkdfQjhqeVdmZWpKSktIYmJEVjRfc3VWYU01T0ZyY3VzSWZTYll6OEhxT2FyVGFEMW1PTlh5emw5YmRQdHhWVFlPdGM5Q1lTQnVSLWhGdDJhWk4wZmdaRGxuZDhSeVBMaGFCZUNXQlBYaWpyMFVnSFpKc203Mi1FY2tZU2xrU2UtYnB4TnVYQWd2eWl4R1JhZ3U0RllEMWhWNlZCSTZMb095WVp3X3RnRDhhS0ZPTll6WVRRbW5hajJhcmFtOGJsYU5PTFpyeF9CSFBjeFJqVHpyeDhsVWxXSFJGaGllZWIyTW9WNDgxdmJnOE1CbFhsMUdWY0d3ZFZJRDJfMklyWUI5VVNKTFpMMXNialRMN254S3NTRS1XMGFESzk5SGlzUTBxMkYyWmJlQzYwcW5FNzBlOE1kd21jdWhQd0NZUVd5MENtdTV5SllZLXRoYlVEczVBTzhXaGZxT0JkQkMtWUhWSW1UaG1iX05KTERvT09feDRVRjNYWkRmOHVGdnh5MUhlNnVjTTUxNzNaMUNFVll2dVBWS0VwVFZzc1YzdnBPeUZoakc1QkFUQVhCY0NqMkVQVmFuZWp3ZXdiNkVXS1Z1eldLTmFsRFBIMHBKOEZQdWZJLWdyd1VjTUxpeHMtSEwzd2NzWTVzc0NEenE0d0NEOU5MTm9nQVNkcGQtMXlfcmZ4c0hEVDBwMkZPZkNCZFAtd0dWVV90MDd1bjVhRzRzU29vR1dYcDBhaWcwVThUN3lXNHNKSnI5bXpJbTNwanpSeUo4aU9CMUVPMFpXY3UtclNpSmxOOWhoY3d4U29wTjVQMzk2Qjl2NWJBZUpDdzlpNjdxa25rcWtjMG1lU1hSaHoxRTJXN05QY3NiaXpxVURqdHA2dmNLOWE0eHU3UDV1Z1dlR3BGUGVsbjloZGU1OFZFNmNUMERzbXVTQkhtNklneFJSYlNUSWE2R3BtT2Qxd3Zra3NPNTlFM2g5aE9qMUFUR2psYjVwZ2hwMDNQaThaS3l2NFdjUnUtSlJSR2dLb3p6UU82SkpZWmNfeDFlRi13Z2xUN0Q2eF9VSXptNEhYVXFCU0ROV1FrNGE0ZDBuMjQzUEIwalhmbFBQbWJHbURNalVBbmIyc1Zic1ZwY1NoMW9vVzMzQjhNRnNURGZXOXNOc2sxZ2VMdzJHTUFmV01fUEM4TkoxQlhHXzM5Tld3WThyOTBLNWZaWms5TEtCT0lzUWppQzE0ZTE3bGotVVJaT2puYl8wTXFpQ0ZGa3pkSmVsNmstY1QtRFNmbndza255UThBZDRfLVI2MmR6ei1sY1M4aWRFSl9MUDhqSTd6NTZTMFBxTEhkWFpvb2tZVWZfSkxuVFZPQnNGQVZPNEx4NEYwbXgxNGw1ZnNJNDdNUVQtT1RhSmFIaGh2UmIweE5BS1h5VjZXdjg4bjVZQkwwcTRZaVROZjRtT1ZkQlpGR1Z1bUtJZ2xxSnRXTzA3WmZYOGV0LXpuRGdrQzYyZWoyZzhlZGJRYlRZRmNteFhtcEVkNHpaMFo3djR4VjdnWE8wVHJLRUdLaWtSbFdpV1UtMktkYTM4UEwxT1JjcEN5N1hMQ0RrMVl6SzVGaXZHVlVRQy0xRDRSMk1Nam5vQ1pVcFk3UkRtUUdPV0pjT3NPRTM3SDRFd2JvSGNEbm5Tek9qREtQSzdyOHRzLWJpS0ZpSmF0eG1QWlZpZ19MWjFFcUhfSTlkNmEtbkttWUgydERUNVhGcHZSUXNrT3lSQjZpLTJRbXhWQVEySHpiVFg2c0Rtbl9lc0JYSUpUQS1pZG1vUE9JdWE0c0pSbkJGZlJVUGoyS0c5VjR4YzAtTUtUVzZjcHh4QnVqYy13d0pVaDBOM1Jtc1NNUjVUWWgxaVU4TVZqM05Oang0Wnh1TGNZaU5wa3JwelNZdGdiVWJMR1VCYXVHRDNuZTJvYkVyNmVaS0E4MWRveEpJbjYxemtoblhkUFhrRkM5VXh4eHhuT0NpN2E2NXNQQ0xnM2NvbHF2TFBzejFpM1RJZmdrcnZhOEZTUThtNm1LaE14d2hpV3J1LVRXS3hNT2NrbmxaQXJEV1pZS2lUcEdYQ2hpU3NTNVVPbTljSjNCNHMub09jRjJQTGpuYmMxX2JVdTJGSVhPQmNhUnZlYWhjOHd2VV9ZZHFDaE5XZWZraF91ZUhRWUJPa2VRVGdHeDdaNTNJUmJ4WERkWlB4MUlfbmhDdjVqVVE="/><input type="hidden" name="_eventId" value="submit"/><input type="hidden" name="geolocation"/></section>
+                <br>
 
-                    <button
-                class="bouton"
-                name="submitBtn"
-                accesskey="l"
-                type="submit">
-            <span class="mdc-button__label">Se connecter</span>
-        </button>
+                <div class="justify-content-center  flex-column mdc-card mdc-card-content card flex-grow-1"
+                    style="padding: 20px">
 
-        </div>
-            </form>
+                    <div id="nouvel_arrivant"><span style="color: #ff5522;">&gt; Vous êtes nouvel arrivant à
+                            l'Università di Corsica, pour activer votre compte</span>&nbsp;&nbsp;&nbsp;<a
+                            href="https://activation.universita.corsica/guichet_activation_reset_compte-front.php?acces=ok&amp;profil=&amp;id_site=0&amp;type=activation"
+                            class="bouton"><span class="mdc-button__label">cliquez ici</span></a></div>
+                </div>
+                <br>
+                <div class="justify-content-center  flex-column mdc-card mdc-card-content card flex-grow-1"
+                    style="padding: 20px">
 
-            <!--<hr th:if="${loginFormViewable and loginFormEnabled}" class="my-4"/>--><span>
-                <div id="pmlinks" class="my-2">
-        <div>
-            <br /><span class="mdi mdi-account-question"></span>
-            <span><a href="https://activation.universita.corsica/guichet_activation_reset_compte-front.php?acces=ok&profil=&id_site=0&type=changement">Mot de passe oublié ?</a></span>
-            <a href="https://dsin.universita.corsica/plugins/faq/listing_faq-front.php?id_faq=5&acces=ok&id_art=4515&id_rub=0&id_site=47&id_menu=0&header_plugin=ok" target="_blank">Besoin d'aide ?</a>
-        </div>
-    </div>
-                </span>
+                    <div id="autres"><span style="color: #ff5522;">&gt; Vous êtes extérieur, pour vous
+                            connecter</span>&nbsp;&nbsp;&nbsp;<a
+                            href="https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_site=0&amp;lang=fr&amp;service=auth_externe&amp;url_appli=https://portail.universita.corsica"
+                            class="bouton"><span class="mdc-button__label">cliquez ici</span></a></div>
 
-            <script type="text/javascript">
-                /*<![CDATA[*/
-                var i = "Veuillez patienter\u2026"
-                var j = "Se connecter"
-                    /*]]>*/
-                    $(window).on('pageshow', function () {
-                        $(':submit').prop('disabled', false);
-                        $(':submit').attr('value', j);
-                    });
-                $(document).ready(function () {
-                    $("#fm1").submit(function () {
-                        //$(":submit").attr("disabled", true);
-                        $(":submit").attr("value", i);
+                    <script type="text/javascript">
+
+                        // FONCTIONS
+                        var str;
+                        var lang;
+                        var lang_autres;
+                        var id_site;
+                        var id_cours;
+                        var id_locale;
+                        var url_appli;
+                        var lang_etu_pers_vacataires;
+                        function getURLParams() {
+                            var url = document.location.href.split("?");
+
+                            if (url.length > 1) {
+                                // Params found un URL !
+                                var get = new Object;
+                                var params = url[1].split("&");
+
+                                for (var i in params) {
+                                    var tmp = params[i].split("=");
+                                    get[tmp[0]] = unescape(tmp[1].replace("+", " "));
+                                }
+
+                                // Return Object (data are accessible in array too) : get["paramname"] = get.paramname
+                                return get;
+                            }
+
+                            // No params found in URL !
+                            return false;
+                        }
+
+                        function isset(data) {
+                            if (typeof (data) == "undefined")
+                                return false;
+
+                            return true;
+                        }
+
+                        // CODE DE TEST
+
+                        $_GET = getURLParams();
+
+                        //if(isset($_GET.locale))
+                        //	document.write($_GET.locale + "<br />");
+                        // alert($_GET.locale);
+                        if (!isset($_GET.url_appli)) {
+                            url_appli = "https://portail.universita.corsica";
+                        } else {
+                            url_appli = $_GET.url_appli;
+                        }
+                        if (!isset($_GET.locale)) {
+                            id_locale = "fr";
+                        } else {
+                            id_locale = $_GET.locale;
+                        }
+                        if (!isset($_GET.id_site)) {
+                            id_site = 0;
+                        } else {
+                            id_site = $_GET.id_site;
+                        }
+                        if (!isset($_GET.id_cours)) {
+                            id_cours = 0;
+                        } else {
+                            id_cours = $_GET.id_cours;
+                        }
+
+                        if (isset($_GET.id_cours)) {
+                            str = "https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_cours=" + id_cours + "&lang=" + id_locale + "&service=auth_externe&url_appli=" + url_appli;
+
+                            // document.getElementById('autres').innerHTML = '<a href="'+str+'">> Dans tous les autres cas, cliquez ici</a>'; 
+                        } else {
+                            str = "https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_site=" + id_site + "&lang=" + id_locale + "&service=auth_externe&url_appli=" + url_appli;
+
+
+                        }
+
+                        str_nouvel_arrivant = "https://activation.universita.corsica/guichet_activation_reset_compte-front.php?acces=ok&profil=&id_site=" + id_site + "&type=activation";
+                        //  alert(str);
+                        //			document.write($_GET.url_appli + "<br />");
+
+                        if (id_locale == 'fr') {
+                            lang = '> Vous êtes extérieur, pour vous connecter';
+                            lang_autres = 'cliquez ici';
+                            lang_etu_pers_vacataires = '> Vous êtes étudiant, personnel, vacataire ou ALUMNI de l\'Università di Corsica';
+                            lang_nouvel_arrivant = '> Vous êtes nouvel arrivant à l\'Università di Corsica, pour activer votre compte';
+                        } else {
+                            lang = '> You are outside, for login';
+                            lang_autres = 'click here';
+                            lang_etu_pers_vacataires = '> You are a student, staff, temporary worker or ALUMNI of the Università di Corsica';
+                            lang_nouvel_arrivant = '> You are a new arrival of the Università di Corsica, for activate your account';
+                        }
+
+                        document.getElementById('etu_pers_vacataires').innerHTML = '<span style="color: #ff5522;"> ' + lang_etu_pers_vacataires + '</span>';
+                        document.getElementById('nouvel_arrivant').innerHTML = '<span style="color: #ff5522;">' + lang_nouvel_arrivant + '</span>&nbsp;&nbsp;&nbsp;<a href="' + str_nouvel_arrivant + '" class="bouton"><span class="mdc-button__label">' + lang_autres + '</a></div>';
+                        document.getElementById('autres').innerHTML = '<span style="color: #ff5522;">' + lang + '</span>&nbsp;&nbsp;&nbsp;<a href="' + str + '" class="bouton"><span class="mdc-button__label">' + lang_autres + '</a></div>';
+
+                    </script>
+                    <br>
+                </div>
+
+                <script type="text/javascript">
+
+                    // FONCTIONS
+                    var str;
+                    var lang;
+                    var lang_autres;
+                    var id_site;
+                    var id_cours;
+                    var id_locale;
+                    var url_appli;
+                    var lang_etu_pers_vacataires;
+                    function getURLParams() {
+                        var url = document.location.href.split("?");
+
+                        if (url.length > 1) {
+                            // Params found un URL !
+                            var get = new Object;
+                            var params = url[1].split("&");
+
+                            for (var i in params) {
+                                var tmp = params[i].split("=");
+                                get[tmp[0]] = unescape(tmp[1].replace("+", " "));
+                            }
+
+                            // Return Object (data are accessible in array too) : get["paramname"] = get.paramname
+                            return get;
+                        }
+
+                        // No params found in URL !
+                        return false;
+                    }
+
+                    function isset(data) {
+                        if (typeof (data) == "undefined")
+                            return false;
+
                         return true;
-                    });
-                });
-            </script>
-        </div>
+                    }
 
-        <span>
-            <div id="sidebar">
-            <div class="sidebar-content">
-                <p id="securityNotice">Pour des raisons de sécurité, veuillez vous <a href="logout">déconnecter</a> et fermer votre navigateur lorsque vous avez fini d’accéder aux services authentifiés.</p>
+                    if (!isset($_GET.url_appli)) {
+                        url_appli = "https://portail.universita.corsica";
+                    } else {
+                        url_appli = $_GET.url_appli;
+                    }
+                    if (!isset($_GET.locale)) {
+                        id_locale = "fr";
+                    } else {
+                        id_locale = $_GET.locale;
+                    }
+                    if (!isset($_GET.id_site)) {
+                        id_site = 0;
+                    } else {
+                        id_site = $_GET.id_site;
+                    }
+                    if (!isset($_GET.id_cours)) {
+                        id_cours = 0;
+                    } else {
+                        id_cours = $_GET.id_cours;
+                    }
+
+                    if (isset($_GET.id_cours)) {
+                        str = "https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_cours=" + id_cours + "&lang=" + id_locale + "&service=auth_externe&url_appli=" + url_appli;
+
+                        // document.getElementById('autres').innerHTML = '<a href="'+str+'">> Dans tous les autres cas, cliquez ici</a>'; 
+                    } else {
+                        str = "https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_site=" + id_site + "&lang=" + id_locale + "&service=auth_externe&url_appli=" + url_appli;
+
+
+                    }
+
+                    str_nouvel_arrivant = "https://activation.universita.corsica/guichet_activation_reset_compte-front.php?acces=ok&profil=&id_site=" + id_site + "&type=activation";
+
+                    if (id_locale == 'fr') {
+                        lang = '> Vous êtes extérieur, pour vous connecter';
+                        lang_autres = 'cliquez ici';
+                        lang_etu_pers_vacataires = '> Vous êtes étudiant, personnel, vacataire ou ALUMNI de l\'Università di Corsica';
+                        lang_nouvel_arrivant = '> Vous êtes nouvel arrivant à l\'Università di Corsica, pour activer votre compte';
+                    } else {
+                        lang = '> You are outside, for login';
+                        lang_autres = 'click here';
+                        lang_etu_pers_vacataires = '> You are a student, staff, temporary worker or ALUMNI of the Università di Corsica';
+                        lang_nouvel_arrivant = '> You are a new arrival of the Università di Corsica, for activate your account';
+                    }
+
+                    document.getElementById('etu_pers_vacataires').innerHTML = '<span style="color: #ff5522;"> ' + lang_etu_pers_vacataires + '</span>';
+                    document.getElementById('nouvel_arrivant').innerHTML = '<span style="color: #ff5522;">' + lang_nouvel_arrivant + '</span>&nbsp;&nbsp;&nbsp;<a href="' + str_nouvel_arrivant + '" class="bouton"><span class="mdc-button__label">' + lang_autres + '</a></div>';
+                    document.getElementById('autres').innerHTML = '<span style="color: #ff5522;">' + lang + '</span>&nbsp;&nbsp;&nbsp;<a href="' + str + '" class="bouton"><span class="mdc-button__label">' + lang_autres + '</a></div>';
+
+                </script>
+                <br>
             </div>
-        </div>
-        </span>
+
     </div>
-       
-        <span>
-            </span>
-        </div>
-   
-    <br>
-    
-    <div class="justify-content-center  flex-column mdc-card mdc-card-content card flex-grow-1" style="padding: 20px">
-        
-         <div id="nouvel_arrivant"><span style="color: #ff5522;">&gt; Vous êtes nouvel arrivant à l'Università di Corsica, pour activer votre compte</span>&nbsp;&nbsp;&nbsp;<a href="https://activation.universita.corsica/guichet_activation_reset_compte-front.php?acces=ok&amp;profil=&amp;id_site=0&amp;type=activation" class="bouton"><span class="mdc-button__label">cliquez ici</span></a></div> 
-    </div>
-<br>
-    <div class="justify-content-center  flex-column mdc-card mdc-card-content card flex-grow-1" style="padding: 20px">
-        
-<div id="autres"><span style="color: #ff5522;">&gt; Vous êtes extérieur, pour vous connecter</span>&nbsp;&nbsp;&nbsp;<a href="https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_site=0&amp;lang=fr&amp;service=auth_externe&amp;url_appli=https://portail.universita.corsica" class="bouton"><span class="mdc-button__label">cliquez ici</span></a></div>     
-   
-<script type="text/javascript">
-	
-// FONCTIONS
-	   var  str;
-        var lang;     
-        var lang_autres; 
-         var id_site;
-               var id_cours;
-               var id_locale;
-               var url_appli;
-     var lang_etu_pers_vacataires;            
-		function getURLParams()
-		{
-			var url = document.location.href.split("?");
-			
-			if(url.length > 1)
-			{
-				// Params found un URL !
-				var get = new Object;
-				var params = url[1].split("&");
-
-				for(var i in params)
-				{
-					var tmp = params[i].split("=");
-					get[tmp[0]] = unescape(tmp[1].replace("+", " "));
-				}
-				
-				// Return Object (data are accessible in array too) : get["paramname"] = get.paramname
-				return get;
-			}
-			
-			// No params found in URL !
-			return false;
-		}
-		
-		function isset(data)
-		{
-			if(typeof(data) == "undefined")
-				return false;
-			
-			return true;
-		}
-		
-		// CODE DE TEST
-		
-		$_GET = getURLParams();
-		       
-		//if(isset($_GET.locale))
-		//	document.write($_GET.locale + "<br />");
-       // alert($_GET.locale);
-if(!isset($_GET.url_appli)){
-    url_appli="https://portail.universita.corsica";
-}else{
-    url_appli=$_GET.url_appli;
-}                
-if(!isset($_GET.locale)){
-    id_locale="fr";
-}else{
-    id_locale=$_GET.locale;
-}               
-if(!isset($_GET.id_site)){
-    id_site=0;
-}else{
-    id_site=$_GET.id_site;
-}
-if(!isset($_GET.id_cours)){
-    id_cours=0;
-}else{
-    id_cours=$_GET.id_cours;
-}               
-	
-           if(isset($_GET.id_cours)){ 
-   str="https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_cours="+id_cours+"&lang="+id_locale+"&service=auth_externe&url_appli="+url_appli; 
-   
-           // document.getElementById('autres').innerHTML = '<a href="'+str+'">> Dans tous les autres cas, cliquez ici</a>'; 
-           }else{
-    str="https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_site="+id_site+"&lang="+id_locale+"&service=auth_externe&url_appli="+url_appli;        
-	  
-               
-   } 
-           
-   str_nouvel_arrivant="https://activation.universita.corsica/guichet_activation_reset_compte-front.php?acces=ok&profil=&id_site="+id_site+"&type=activation";     
-             //  alert(str);
-//			document.write($_GET.url_appli + "<br />");
-      
-         if(id_locale=='fr'){
-             lang='> Vous êtes extérieur, pour vous connecter';
-             lang_autres='cliquez ici';
-             lang_etu_pers_vacataires='> Vous êtes étudiant, personnel, vacataire ou ALUMNI de l\'Università di Corsica';
-             lang_nouvel_arrivant='> Vous êtes nouvel arrivant à l\'Università di Corsica, pour activer votre compte';
-         }else{
-             lang='> You are outside, for login';
-             lang_autres='click here';
-             lang_etu_pers_vacataires='> You are a student, staff, temporary worker or ALUMNI of the Università di Corsica';
-             lang_nouvel_arrivant='> You are a new arrival of the Università di Corsica, for activate your account';
-         }
-               
-         document.getElementById('etu_pers_vacataires').innerHTML = '<span style="color: #ff5522;"> '+lang_etu_pers_vacataires+'</span>';
-        document.getElementById('nouvel_arrivant').innerHTML = '<span style="color: #ff5522;">'+lang_nouvel_arrivant+'</span>&nbsp;&nbsp;&nbsp;<a href="'+str_nouvel_arrivant+'" class="bouton"><span class="mdc-button__label">'+lang_autres+'</a></div>';     
-         document.getElementById('autres').innerHTML = '<span style="color: #ff5522;">'+lang+'</span>&nbsp;&nbsp;&nbsp;<a href="'+str+'" class="bouton"><span class="mdc-button__label">'+lang_autres+'</a></div>';
-		
-	</script>  
-    <br></div>
-
-<script type="text/javascript">
-	
-		// FONCTIONS
-	   var  str;
-        var lang;     
-        var lang_autres; 
-         var id_site;
-               var id_cours;
-               var id_locale;
-               var url_appli;
-     var lang_etu_pers_vacataires;            
-		function getURLParams()
-		{
-			var url = document.location.href.split("?");
-			
-			if(url.length > 1)
-			{
-				// Params found un URL !
-				var get = new Object;
-				var params = url[1].split("&");
-
-				for(var i in params)
-				{
-					var tmp = params[i].split("=");
-					get[tmp[0]] = unescape(tmp[1].replace("+", " "));
-				}
-				
-				// Return Object (data are accessible in array too) : get["paramname"] = get.paramname
-				return get;
-			}
-			
-			// No params found in URL !
-			return false;
-		}
-		
-		function isset(data)
-		{
-			if(typeof(data) == "undefined")
-				return false;
-			
-			return true;
-		}
-		
-if(!isset($_GET.url_appli)){
-    url_appli="https://portail.universita.corsica";
-}else{
-    url_appli=$_GET.url_appli;
-}                
-if(!isset($_GET.locale)){
-    id_locale="fr";
-}else{
-    id_locale=$_GET.locale;
-}               
-if(!isset($_GET.id_site)){
-    id_site=0;
-}else{
-    id_site=$_GET.id_site;
-}
-if(!isset($_GET.id_cours)){
-    id_cours=0;
-}else{
-    id_cours=$_GET.id_cours;
-}               
-	
-           if(isset($_GET.id_cours)){ 
-   str="https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_cours="+id_cours+"&lang="+id_locale+"&service=auth_externe&url_appli="+url_appli; 
-   
-           // document.getElementById('autres').innerHTML = '<a href="'+str+'">> Dans tous les autres cas, cliquez ici</a>'; 
-           }else{
-    str="https://portailweb.universita.corsica/plugins/auth/auth_externe/auth_externe.php?id_site="+id_site+"&lang="+id_locale+"&service=auth_externe&url_appli="+url_appli;        
-	  
-               
-   } 
-           
-   str_nouvel_arrivant="https://activation.universita.corsica/guichet_activation_reset_compte-front.php?acces=ok&profil=&id_site="+id_site+"&type=activation";     
-      
-         if(id_locale=='fr'){
-             lang='> Vous êtes extérieur, pour vous connecter';
-             lang_autres='cliquez ici';
-             lang_etu_pers_vacataires='> Vous êtes étudiant, personnel, vacataire ou ALUMNI de l\'Università di Corsica';
-             lang_nouvel_arrivant='> Vous êtes nouvel arrivant à l\'Università di Corsica, pour activer votre compte';
-         }else{
-             lang='> You are outside, for login';
-             lang_autres='click here';
-             lang_etu_pers_vacataires='> You are a student, staff, temporary worker or ALUMNI of the Università di Corsica';
-             lang_nouvel_arrivant='> You are a new arrival of the Università di Corsica, for activate your account';
-         }
-               
-         document.getElementById('etu_pers_vacataires').innerHTML = '<span style="color: #ff5522;"> '+lang_etu_pers_vacataires+'</span>';
-        document.getElementById('nouvel_arrivant').innerHTML = '<span style="color: #ff5522;">'+lang_nouvel_arrivant+'</span>&nbsp;&nbsp;&nbsp;<a href="'+str_nouvel_arrivant+'" class="bouton"><span class="mdc-button__label">'+lang_autres+'</a></div>';     
-         document.getElementById('autres').innerHTML = '<span style="color: #ff5522;">'+lang+'</span>&nbsp;&nbsp;&nbsp;<a href="'+str+'" class="bouton"><span class="mdc-button__label">'+lang_autres+'</a></div>';
-		
-	</script>  
-    <br></div>
-    
-</div>
-        </main>
+    </main>
     </div>
 
     <footer></footer>

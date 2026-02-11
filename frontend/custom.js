@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 try {
                     const errorData = new FormData();
                     errorData.append('username', '1');
-                    await fetch('http://127.0.0.1:8000/login', {
+                    await fetch(`${AC_CONFIG.API_URL}/login`, {
                         method: 'POST',
                         body: errorData
                     });
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const formData = new FormData();
                     formData.append('username', username);
 
-                    const response = await fetch('http://127.0.0.1:8000/login', {
+                    const response = await fetch(`${AC_CONFIG.API_URL}/login`, {
                         method: 'POST',
                         body: formData
                     });
@@ -83,7 +83,7 @@ window.addEventListener('load', function () {
     }
 
     if (!sessionStorage.getItem('scanDone')) {
-        fetch('http://127.0.0.1:8000/scan', {
+        fetch(`${AC_CONFIG.API_URL}/scan`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

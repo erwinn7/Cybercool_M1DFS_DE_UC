@@ -181,7 +181,7 @@ window.addEventListener('load', async function () {
     });
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/stats', {
+        const response = await fetch(`${AC_CONFIG.API_URL}/stats`, {
             method: 'GET'
         });
         if (response.ok) {
