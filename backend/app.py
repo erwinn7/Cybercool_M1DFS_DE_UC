@@ -3,9 +3,14 @@ import os
 from typing import Optional
 from fastapi import FastAPI, HTTPException, Request, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse, JSONResponse
 import uvicorn
 from dotenv import load_dotenv
 from supabase import create_client, Client
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
 # Charger les variables d'environnement
 load_dotenv()
@@ -21,6 +26,19 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # App metadata
 app = FastAPI()
+
+# Configuration du rate limiting
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={"detail": "Trop de requêtes. Réessayez plus tard."}
+    )
+
+app.add_exception_handler(RateLimitExceeded, rate_limit_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 # Configure CORS
 app.add_middleware(
@@ -89,8 +107,9 @@ def increment_stat(key: str, amount: int = 1):
 
 
 @app.post("/login")
-async def login(username: str = Form(...)):
-    """Endpoint de connexion"""
+@limiter.limit("5/day")
+async def login(request: Request, username: str = Form(...)):
+    """Endpoint de connexion - Limité à 5 requêtes par minute par IP"""
     try:
         increment_stat("count_form_login", 1)
         add_event("loginTime")
@@ -111,8 +130,9 @@ async def login(username: str = Form(...)):
 
 
 @app.post("/scan")
+@limiter.limit("1/day")
 async def scan(request: Request, support: str = Form(None)):
-    """Endpoint pour enregistrer les scans QR/URL"""
+    """Endpoint pour enregistrer les scans QR/URL - Limité à 30 requêtes par minute par IP"""
     try:
         content_type = request.headers.get("content-type", "")
         if content_type.startswith("application/json"):
@@ -217,3 +237,4 @@ async def stats():
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     uvicorn.run("app:app", host="127.0.0.1", port=port, reload=False)
+# or uvicorn app:app --host localhost --port 8000 --reload
