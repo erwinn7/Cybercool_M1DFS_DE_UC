@@ -25,7 +25,7 @@ if not SUPABASE_URL or not SUPABASE_KEY:
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # App metadata
-app = FastAPI()
+app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
 # Configuration du rate limiting
 limiter = Limiter(key_func=get_remote_address)
@@ -56,8 +56,14 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+async def root():
+    return {"message": "Non pitié me dites pas que vous avez fait ça pour rien..."}
+
+
 @app.get("/health")
-async def health():
+@limiter.limit("5/minute")
+async def health(request: Request):
     """Endpoint de santé pour garder l'API réveillée."""
     return {
         "status": "ok",
@@ -153,6 +159,7 @@ async def scan(request: Request, support: str = Form(None)):
 
 
 @app.post("/link_click")
+@limiter.limit("1/day")
 async def link_click(request: Request, link_name: str = Form(None)):
     """Endpoint pour enregistrer les clics sur les liens d'apprentissage"""
     try:
@@ -185,7 +192,8 @@ async def link_click(request: Request, link_name: str = Form(None)):
 
 
 @app.get("/stats")
-async def stats():
+@limiter.limit("5/minute")
+async def stats(request: Request):
     """Récupère toutes les statistiques pour le dashboard"""
     try:
         # Récupérer les compteurs
