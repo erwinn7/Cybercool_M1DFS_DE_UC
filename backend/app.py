@@ -38,6 +38,15 @@ app.add_middleware(
 )
 
 
+@app.get("/health")
+async def health():
+    """Endpoint de santé pour garder l'API réveillée."""
+    return {
+        "status": "ok",
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
+    }
+
+
 def verify_username(username: str) -> bool:
     """Vérifie si le username est un numéro étudiant valide"""
     try:
